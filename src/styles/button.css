@@ -1,0 +1,39 @@
+:root{
+
+    --bronw:#6A6363;
+    --orange:#FD9E29;
+    --lighterBronw:#847D7D;
+    --delete:#FD615F;
+    --expand:#36C447
+
+}
+.btn{
+    width:15px;
+    height:15px;
+    border-radius: 50%;
+    color:#000;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    margin:5px 6px;
+    font-weight: bold;
+}
+.box{
+    width:calc(100%/4);
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    color:#fff;
+    border:0.2px solid #000;
+    height:calc(100%/5);
+    font-size:1.4rem;
+}
+.delete{
+    background-color: var(--delete);
+}
+.zoom{
+    background-color: var(--orange);
+}
+.expand{
+    background-color: var(--expand);
+}
