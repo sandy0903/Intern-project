@@ -1,10 +1,24 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React, { useState } from "react";
+import ReactDOM from "react-dom";
+import Layout from "./components/Layout"
+import Screen from "./components/Screen"
+import Board from "./components/Board"
 
-const App=()=>{
-    return (
-        <h1>Hello world</h1>
-    )
-}
+import AppProvider from "./context";
+import History from "./page/History";
+const App = () => {
 
-export default App
+  return (
+  <AppProvider>
+
+    <Layout>
+      <Screen/>
+      <Board/>
+    </Layout>
+    <History/>
+  </AppProvider>
+
+  );
+};
+
+export default App;
