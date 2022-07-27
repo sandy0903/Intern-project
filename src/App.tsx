@@ -1,15 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
-import Board from "./components/Board";
-import Layout from "./components/Layout";
-import Screen from "./components/Screen";
+import Layout from "./components/Layout"
+import Screen from "./components/Screen"
+import Board from "./components/Board"
 
+import AppProvider from "./context";
+import History from "./page/History";
 const App = () => {
+
   return (
-   <Layout>
-     <Screen/>
-     <Board/>
-   </Layout>
+  <AppProvider>
+
+    <Layout>
+      <Screen/>
+      <Board/>
+    </Layout>
+    <History/>
+  </AppProvider>
+
   );
 };
 

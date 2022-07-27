@@ -1,12 +1,16 @@
-import React, { SetStateAction, useContext, useState } from "react";
+import React, { SetStateAction, useContext, useState,useEffect } from "react";
 
 export type ContextProp = {
   clearValue: boolean;
   number?: number | null | string | [];
   display: string;
+  resultList:{
+    result:string
+  }[]
   handleKeyBoard: (e: any) => any;
   setClearValue?: React.Dispatch<React.SetStateAction<boolean>>;
   setDisplay?: React.Dispatch<React.SetStateAction<string>>;
+
 };
 const AppContext = React.createContext<ContextProp | null>(null);
 
@@ -15,7 +19,16 @@ const AppProvider = ({ children }: any) => {
   const [clearValue, setClearValue] = useState(true);
   const [number, setNumber] = useState<number | string | null>(null);
   const [display, setDisplay] = useState<string>("");
+  const [resultList, setResultList]=useState<{result:string}[]>([])
+  const [getList, setGetList]=useState<boolean>(false)
 
+// get result from localStorage
+  useEffect(() => {
+    const results =window.localStorage.getItem('results' || null);
+    typeof results=='string' && setResultList(JSON.parse(results))
+
+
+  }, []);
 
   const handleKeyBoard = (value: any) => {
     if (typeof value == "number") {
@@ -71,15 +84,19 @@ const AppProvider = ({ children }: any) => {
 
         break;
       case "=":
-        console.log(eval(display.replaceAll(",",".")).toString().length)
         setDisplay(eval(display.replaceAll(",",".")).toString().length>3 ? eval(display.replaceAll(",",".")).toFixed(1).toString() : eval(display.replaceAll(",",".")).toString() );
+        const numberResult=eval(display.replaceAll(",",".")).toString().length>3 ? eval(display.replaceAll(",",".")).toFixed(1): eval(display.replaceAll(",","."))
+        setResultList([...resultList,{"result":display+"="+numberResult.toString()}])
+
+        window.localStorage.setItem("results",JSON.stringify(resultList))
+
         break;
     }
   };
 
   return (
     <AppContext.Provider
-      value={{ clearValue, handleKeyBoard, display }}
+      value={{ clearValue, handleKeyBoard, display,resultList }}
     >
       {children}
     </AppContext.Provider>
